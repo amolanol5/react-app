@@ -21,8 +21,7 @@ stages:
 
           - script: |
               yarn install
-              yarn react-scripts
-              yarn run build
+ #             yarn run build
             displayName: "yarn install and build"
 
           - task: ArchiveFiles@2
