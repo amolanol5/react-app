@@ -21,6 +21,7 @@ stages:
 
           - script: |
               yarn install
+              yarn react-scripts
               yarn run build
             displayName: "yarn install and build"
 
