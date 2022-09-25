@@ -16,13 +16,14 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: "16.0.0"
+              versionSpec: "18.0.0"
             displayName: "Install Node.js"
 
           - script: |
               yarn install
-              ls -la *
- #             yarn run build
+              ls
+              yarn run build
+              ls
             displayName: "yarn install and build"
 
           - task: ArchiveFiles@2
