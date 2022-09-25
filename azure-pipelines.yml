@@ -1,19 +1,70 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+  - dev
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+  - group: "node-app-amplify"
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Build
+        displayName: Build
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "12.16.1"
+            displayName: "Install Node.js"
+
+          - script: |
+              yarn install
+              yarn run build
+            displayName: "yarn install and build"
+
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
+              includeRootFolder: false
+              archiveType: "zip"
+              archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+              replaceExistingArchive: true
+            displayName: Compress the ./build folder
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)
+              ArtifactName: $(Build.BuildId)
+            displayName: Publish build artifacts
+
+  - stage: Deploy
+    displayName: Deploy amplify
+    jobs:
+      - job: Deploy
+        displayName: Deploy
+        steps:
+          - task: DownloadBuildArtifacts@0
+            displayName: "Download Build Artifacts"
+            inputs:
+              artifactName: $(Build.BuildId)
+              downloadPath: $(System.DefaultWorkingDirectory)
+
+          - task: AWSShellScript@1
+            inputs:
+              awsCredentials: AWS AMOLANO ENV
+              regionName: $(AwsRegion)
+              scriptType: "inline"
+              failOnStandardError: true
+              inlineScript: |
+                export DEPLOY_RES=$(aws amplify create-deployment --app-id $(AmplifyAppId) --branch-name $(AmplifyBranchName) --no-cli-pager)
+                export DEPLOY_JOB_ID=$(echo $DEPLOY_RES | jq -r ".jobId")
+                export DEPLOY_URL=$(echo $DEPLOY_RES | jq -r ".zipUploadUrl")
+
+                curl -s --location --request PUT "$DEPLOY_URL" \
+                    --header 'Content-Type: application/zip' \
+                    --data-binary '@/$(System.DefaultWorkingDirectory)/$(Build.BuildId)/$(Build.BuildId).zip'
+
+                aws amplify start-deployment --app-id $(AmplifyAppId) --branch-name $(AmplifyBranchName) --job-id $DEPLOY_JOB_ID
+            displayName: Create Amplify Deployment
