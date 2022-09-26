@@ -25,7 +25,7 @@ stages:
               export PRUEBA=$(PRUEBA)
               echo "PRUEBA=$(PRUEBA)" >> .env
               echo "---------------------------------------------"
-              echo PRUEBA
+              echo $PRUEBA
               yarn run build
               ls build
             
