@@ -22,8 +22,8 @@ stages:
           - script: |
               yarn install
               ls
-              export PRUEBA=$(PRUEBA)
-              echo "PRUEBA=$(PRUEBA)" >> .env
+              export REACT_APP_PRUEBA=$(PRUEBA)
+              echo "REACT_APP_PRUEBA=$(PRUEBA)" >> .env
               echo "---------------------------------------------"
               echo $PRUEBA
               yarn run build
