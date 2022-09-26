@@ -3,7 +3,8 @@ import React from 'react';
 const HelloWorld = () => {
   
   function sayHello() {
-    alert('Hello, World!');
+    const variabletest = process.env.PRUEBA || "varvacia"
+    alert(variabletest);
   }
   
   return (
