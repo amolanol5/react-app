@@ -22,9 +22,9 @@ stages:
           - script: |
               yarn install
               ls
-              echo "PRUEBA=$(PRUEBA)" >> .env
               yarn run build
-              ls
+              ls build
+              echo "PRUEBA=$(PRUEBA)" >> build/.env
 
             displayName: "yarn install and build"
 
