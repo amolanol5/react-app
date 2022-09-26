@@ -22,10 +22,13 @@ stages:
           - script: |
               yarn install
               ls
+              export PRUEBA=$(PRUEBA)
+              echo "PRUEBA=$(PRUEBA)" >> .env
+              echo "---------------------------------------------"
+              echo PRUEBA
               yarn run build
               ls build
-              echo "PRUEBA=$(PRUEBA)" >> build/.env
-
+            
             displayName: "yarn install and build"
 
           - task: ArchiveFiles@2
