@@ -6,7 +6,7 @@ const variabletest3 = process.env.MESSAGE || "messagevacio"
 const HelloWorld = () => {
   
   function sayHello() {
-    alert(variabletest2,variabletest3);
+    alert(process.env.AWS_APP_ID);
   }
   
   return (
