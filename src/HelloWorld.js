@@ -3,8 +3,11 @@ import React from 'react';
 const HelloWorld = () => {
   
   function sayHello() {
-    const variabletest = process.env.PRUEBA || "varvacia"
-    alert(variabletest);
+    const variabletest1 = process.env.PRUEBA || "varvacia"
+    const variabletest2 = process.env.AWS_APP_ID || "appidvacio"
+    const variabletest3 = process.env.MESSAGE || "messagevacio"
+
+    alert(variabletest1,variabletest2,variabletest3);
   }
   
   return (
