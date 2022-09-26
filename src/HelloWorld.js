@@ -1,12 +1,12 @@
 import React from 'react';
-const variabletest1 = process.env.REACT_APP_PRUEBA || "varvacia"
+const variabletest1 = process.env.REACT_APP_API_SERVER || "varvacia"
 const variabletest2 = process.env.AWS_APP_ID || "appidvacio"
 const variabletest3 = process.env.MESSAGE || "messagevacio"
 
 const HelloWorld = () => {
   
   function sayHello() {
-    alert(process.env.REACT_APP_PRUEBA);
+    alert(process.env.REACT_APP_API_SERVER);
   }
   
   return (
