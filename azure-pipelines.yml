@@ -21,13 +21,11 @@ stages:
 
           - script: |
               yarn install
-              ls
-              export REACT_APP_PRUEBA=$(PRUEBA)
-              echo "---------------------------------------------"
-              echo $PRUEBA
-              yarn run build
-              ls build
-            
+              
+              touch .env
+              echo "REACT_APP_PRUEBA=$(PRUEBA)" >> .env
+
+              yarn run build            
             displayName: "yarn install and build"
 
           - task: ArchiveFiles@2
@@ -74,3 +72,12 @@ stages:
 
                 aws amplify start-deployment --app-id $(AmplifyAppId) --branch-name $(AmplifyBranchName) --job-id $DEPLOY_JOB_ID
             displayName: Create Amplify Deployment
+
+
+              # yarn install
+              # ls
+              # export REACT_APP_PRUEBA=$(PRUEBA)
+              # echo "---------------------------------------------"
+              # echo $PRUEBA
+              # yarn run build
+              # ls build
