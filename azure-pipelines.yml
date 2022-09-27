@@ -21,9 +21,11 @@ stages:
 
           - script: |
               yarn install
-              
+
               touch .env
               echo "REACT_APP_PRUEBA=$(PRUEBA)" >> .env
+              echo "AWS_APP_ID=variable-aws-id" >> .env
+              echo "MESSAGE=variable-message" >> .env
 
               yarn run build            
             displayName: "yarn install and build"

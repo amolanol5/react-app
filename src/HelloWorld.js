@@ -7,6 +7,8 @@ const HelloWorld = () => {
   
   function sayHello() {
     alert(variabletest1);
+    alert(variabletest2);
+    alert(variabletest3);
   }
   
   return (
