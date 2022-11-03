@@ -19,17 +19,19 @@ stages:
               versionSpec: "18.0.0"
             displayName: "Install Node.js"
 
+          # - script: |
+          #     yarn install
+
+          #     touch .env
+          #     echo "REACT_APP_PRUEBA=$(PRUEBA)" >> .env
+          #     echo "AWS_APP_ID=variable-aws-id" >> .env
+          #     echo "MESSAGE=variable-message" >> .env
+
+          #     yarn run build            
+          #   displayName: "yarn install and build"
           - script: |
-              yarn install
-
-              touch .env
-              echo "REACT_APP_PRUEBA=$(PRUEBA)" >> .env
-              echo "AWS_APP_ID=variable-aws-id" >> .env
-              echo "MESSAGE=variable-message" >> .env
-
-              yarn run build            
-            displayName: "yarn install and build"
-
+              echo $(PRUEBA)
+              
           - task: ArchiveFiles@2
             inputs:
               rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
