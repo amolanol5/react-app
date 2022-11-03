@@ -64,10 +64,16 @@ stages:
                ls -la $(System.DefaultWorkingDirectory)        
             displayName: "ls -la"
 
+          - task: ExtractFiles@1
+            displayName: 'Extract files '
+            inputs:
+              archiveFilePatterns: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              destinationFolder: '$(System.DefaultWorkingDirectory)/application'
+
           - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: 'Replace tokens in tokens**/*'
             inputs:
-              targetFiles: '$(System.DefaultWorkingDirectory)/**/*'  
+              targetFiles: '$(System.DefaultWorkingDirectory)/application/**/*'  
 
           - task: AWSShellScript@1
             inputs:
