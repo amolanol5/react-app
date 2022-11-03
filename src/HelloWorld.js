@@ -1,6 +1,6 @@
 import React from 'react';
 const variabletest1 = process.env.REACT_APP_PRUEBA || "varvacia"
-const variabletest2 = process.env.AWS_APP_ID || "appidvacio"
+const variabletest2 = process.env.COCOLOCO || "COCOLOCO"
 const variabletest3 = process.env.MESSAGE || "messagevacio"
 
 const HelloWorld = () => {
