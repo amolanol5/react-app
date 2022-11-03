@@ -61,8 +61,8 @@ stages:
               downloadPath: $(System.DefaultWorkingDirectory)
 
           - script: |
-               ls -la           
-            displayName: "yarn install and build"
+               ls -la $(System.DefaultWorkingDirectory)        
+            displayName: "ls -la"
 
           - task: AWSShellScript@1
             inputs:
