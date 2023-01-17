@@ -1,6 +1,13 @@
-# Custom Headers must be nested inside a top-level customHeaders key AMOLANOL
 customHeaders:
   - pattern: '**'
     headers:
-    - key: X-Frame-Options
-      value: SAMEORIGIN1234
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000; includeSubDomains'
+      - key: 'X-Frame-Options'
+        value: 'SAMEORIGIN'
+      - key: 'X-XSS-Protection'
+        value: '1; mode=block'
+      - key: 'X-Content-Type-Options'
+        value: 'nosniff'
+      - key: 'Content-Security-Policy'
+        value: "default-src 'self'"
