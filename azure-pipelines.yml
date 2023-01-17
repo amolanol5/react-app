@@ -29,6 +29,10 @@ stages:
               echo $(REACT_APP_PRUEBA)
               ls build/
 
+          - script: |
+              cp -r  customHttp.yml build/  
+              ls build/
+
           - task: ArchiveFiles@2
             inputs:
               rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
