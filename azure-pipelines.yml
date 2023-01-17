@@ -31,8 +31,9 @@ stages:
 
           - script: |
               cp -r  customHttp.yml build/  
-              ls build/
-
+              ls build/customHttp.yml
+            displayName: Custom Headers
+            
           - task: ArchiveFiles@2
             inputs:
               rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
