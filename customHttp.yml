@@ -1,11 +1,6 @@
+# Custom Headers must be nested inside a top-level customHeaders key AMOLANOL
 customHeaders:
-  - pattern: '*.json'
+  - pattern: '**'
     headers:
-    - key: 'custom-header-name-1'
-      value: 'custom-header-value-1'
-    - key: 'custom-header-name-2'
-      value: 'custom-header-value-2'
-  - pattern: '*'
-    headers:
-    - key: 'mola-header'
-      value: 'valordelmolaheader'
+    - key: X-Frame-Options
+      value: SAMEORIGIN
