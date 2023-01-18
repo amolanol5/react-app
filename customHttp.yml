@@ -14,7 +14,7 @@ customHeaders:
       - key: Content-Security-Policy
         value: >-
           default-src 'self' 'unsafe-inline' https:; img-src data: 'self';
-          script-src 'unsafe-inline' 'unsafe-eval'  comercios.wompi.co
+          script-src 'unsafe-inline' 'unsafe-eval' routing.cloudlaboratorio.co comercios.wompi.co
           www.googletagmanager.com www.googleoptimize.com static.zdassets.com
           cdnjs.cloudflare.com wompi.zendesk.com www.google-analytics.com
           snap.licdn.com static.hotjar.com googleads.g.doubleclick.net
