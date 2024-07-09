@@ -1,19 +1,42 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+stages:
+                   
+  - stage: STAGE_B
+    displayName: STAGE_B
+    variables:
+    - group: DEV
+    jobs:
+      - job: job
+        displayName: job_b
+        steps:
+          - bash: |
+              # export DECODE_STRING=$(echo "$SSH_KEY" | base64 --decode)
+              # mkdir -p ~/.ssh
+              # chmod 700 ~/.ssh
+              # echo "$DECODE_STRING" > ~/.ssh/id_rsa
+              # chmod 600 ~/.ssh/id_rsa
 
-trigger:
-- master
+              # eval "$(ssh-agent -s)"
+              # ssh-add ~/.ssh/id_rsa
+              # ssh -o StrictHostKeyChecking=no -T git@github.com
+              
+              # Get the latest commit hash
+              latest_commit=$(git rev-parse HEAD)
+              echo $latest_commit
 
-pool:
-  vmImage: ubuntu-latest
+              # # Get the previous commit hash
+              # previous_commit=$(git diff HEAD..origin/master)
+              # echo $previous_commit
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+              # # List the files that have changed between the two commits
+              # changed_files=$(git diff --name-only $previous_commit $latest_commit)
+              # echo $changed_files
+              echo "uno"
+              test2=$(git log)
+              echo "$test2"
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+              echo "dos"
+              test=$(git branch --list)
+              echo "$test"
+
+              echo "tres"
+              ls -la
