@@ -31,11 +31,16 @@ stages:
               # changed_files=$(git diff --name-only $previous_commit $latest_commit)
               # echo $changed_files
               echo "var"
-              echo variable[System.PullRequest.targetBranchName]
-              echo "$(System.PullRequest.targetBranchName)"
-              echo "$(System.PullRequest.SourceBranch)"
-              echo "$(System.PullRequest.SourceCommitId)"
-              echo "$(System.PullRequest.TargetBranch)"
+              variable[System.PullRequest.targetBranchName]
+              TEST1="$(System.PullRequest.targetBranchName)"
+              TEST2="$(System.PullRequest.SourceBranch)"
+              TEST3="$(System.PullRequest.SourceCommitId)"
+              TEST4=$(System.PullRequest.TargetBranch)
+
+              echo $TEST1
+              echo $TEST2
+              echo $TEST3
+              echo $TEST4
 
               echo "uno"
               test2=$(git log)
