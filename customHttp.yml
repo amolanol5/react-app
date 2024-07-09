@@ -2,7 +2,7 @@ customHeaders:
   - pattern: '*.json'
     headers:
     - key: 'custom-header-name-1'
-      value: 'custom-header-value-1'
+      value: 'custom-header-value-12'
     - key: 'custom-header-name-2'
       value: 'custom-header-value-22'
   - pattern: '/path/*'
