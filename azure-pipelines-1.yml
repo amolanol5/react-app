@@ -2,10 +2,10 @@ trigger:
   batch: true
   branches:
     include:
-      - main
+      - master
 
 pr:
-  - main
+  - master
 
 resources:
   repositories:
