@@ -30,6 +30,14 @@ stages:
               # # List the files that have changed between the two commits
               # changed_files=$(git diff --name-only $previous_commit $latest_commit)
               # echo $changed_files
+              echo "var"
+              echo $(Build.TriggeredBy.DefinitionId)
+              echo $(Build.TriggeredBy.BuildNumber)
+              echo $(Build.SourceVersion)
+              echo $(Build.SourceBranchName)
+              echo $(Build.DefinitionVersion)
+              echo $(System.PullRequest.targetBranchName)
+
               echo "uno"
               test2=$(git log)
               echo "$test2"
