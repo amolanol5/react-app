@@ -30,6 +30,8 @@ stages:
       - job: job
         displayName: job_b
         steps:
+          - checkout: self
+          - checkout: repo2
           - bash: |
               # export DECODE_STRING=$(echo "$SSH_KEY" | base64 --decode)
               # mkdir -p ~/.ssh
