@@ -7,5 +7,5 @@ customHeaders:
       value: 'custom-header-value-2'
   - pattern: '/path/*'
     headers:
-    - key: 'custom-header-name-1'
+    - key: 'custom-header-name-11'
       value: 'custom-header-value-2'
