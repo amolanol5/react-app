@@ -1,5 +1,27 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+
+pr:
+  - main
+
+resources:
+  repositories:
+    - repository: repo1
+      type: github
+      name: amolanol5/react-app
+      endpoint: amolanol5
+      # ref: refs/tags/v1.0
+
+    - repository: repo2
+      type: github
+      name: amolanol5/lab
+      endpoint: amolanol5
+      # ref: refs/tags/v1.0
+    
 stages:
-                   
   - stage: STAGE_B
     displayName: STAGE_B
     variables:
