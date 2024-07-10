@@ -82,7 +82,7 @@ stages:
               # echo $changed_files
               echo "changed files -----------------"
               git fetch origin $pr_branch
-              gti checkout $pr_branch
+              git checkout $pr_branch
               git diff --name-only $main_branch | cat
 
               # echo "uno"
