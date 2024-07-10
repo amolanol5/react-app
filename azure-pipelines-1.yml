@@ -31,7 +31,7 @@ stages:
         displayName: job_b
         steps:
           - checkout: self
-          - checkout: repo2
+          #- checkout: repo2
           - bash: |
               # export DECODE_STRING=$(echo "$SSH_KEY" | base64 --decode)
               # mkdir -p ~/.ssh
@@ -55,16 +55,22 @@ stages:
               # changed_files=$(git diff --name-only $previous_commit $latest_commit)
               # echo $changed_files
               echo "var"
-              variable[System.PullRequest.targetBranchName]
               TEST1="$(System.PullRequest.targetBranchName)"
-              TEST2="$(System.PullRequest.SourceBranch)"
-              TEST3="$(System.PullRequest.SourceCommitId)"
+              pr_branch="$(System.PullRequest.SourceBranch)"
+              commit_pr="$(System.PullRequest.SourceCommitId)"
               TEST4=$(System.PullRequest.TargetBranch)
 
               echo $TEST1
               echo $TEST2
               echo $TEST3
-              echo $TEST4
+
+              echo "commit PR"
+              echo $commit_pr
+              echo "git fetch pr_branch"
+              git fetch origin $pr_branch
+
+              echo "changed files"
+              git diff --name-only $commit_pr | cat
 
               echo "uno"
               test2=$(git log)
