@@ -67,6 +67,7 @@ stages:
               echo "commit PR"
               echo $commit_pr
               echo "git diff"
+              git fetch origin test
               git diff --name-only $commit_pr | cat
 
               echo "uno"
