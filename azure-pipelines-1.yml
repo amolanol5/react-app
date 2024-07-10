@@ -55,12 +55,11 @@ stages:
               echo "var"
               # latest_commit=$(git rev-parse HEAD)
               # previous_commit=$(git diff HEAD..origin/master)
-              TEST1="$(System.PullRequest.targetBranchName)"
+              main_branch="$(System.PullRequest.targetBranchName)"
               pr_branch="$(System.PullRequest.SourceBranch)"
               commit_pr="$(System.PullRequest.SourceCommitId)"
               TEST4=$(System.PullRequest.TargetBranch)
 
-              echo $TEST1
               echo $TEST2
               echo $TEST3
 
@@ -82,7 +81,10 @@ stages:
               # changed_files=$(git diff --name-only $commit_pr $latest_commit)
               # echo $changed_files
               echo "changed files -----------------"
-              git diff --name-only --no-commit-id origin/$pr_branch
+              git fetch origin $pr_branch
+              gti checkout $pr_branch
+              git diff --name-only $main_branch | cat
+
               # echo "uno"
               # test2=$(git log)
               # echo "$test2"
