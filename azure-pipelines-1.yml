@@ -67,7 +67,7 @@ stages:
               echo "commit PR"
               echo $commit_pr
               echo "git diff"
-              git diff --name-only $commit_pr
+              git diff --name-only $commit_pr | cat
 
               echo "uno"
               test2=$(git log)
