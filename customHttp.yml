@@ -8,4 +8,4 @@ customHeaders:
   - pattern: '/path/*'
     headers:
     - key: 'custom-header-name-11'
-      value: 'custom-header-value-2'
+      value: 'custom-header-value-22222'
