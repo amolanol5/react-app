@@ -81,6 +81,7 @@ stages:
               # changed_files=$(git diff --name-only $commit_pr $latest_commit)
               # echo $changed_files
               echo "changed files -----------------"
+              git fetch origin $main_branch
               git fetch origin $pr_branch
               git checkout $pr_branch
               git diff --name-only $main_branch | cat
