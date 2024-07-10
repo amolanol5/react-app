@@ -57,13 +57,17 @@ stages:
               echo "var"
               TEST1="$(System.PullRequest.targetBranchName)"
               TEST2="$(System.PullRequest.SourceBranch)"
-              TEST3="$(System.PullRequest.SourceCommitId)"
+              commit_pr="$(System.PullRequest.SourceCommitId)"
               TEST4=$(System.PullRequest.TargetBranch)
 
               echo $TEST1
               echo $TEST2
               echo $TEST3
-              echo $TEST4
+
+              echo "commit PR"
+              echo $commit_pr
+              echo "git diff"
+              git diff --name-only $commit_pr
 
               echo "uno"
               test2=$(git log)
