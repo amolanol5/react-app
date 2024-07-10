@@ -44,7 +44,7 @@ stages:
               # ssh -o StrictHostKeyChecking=no -T git@github.com
               
               # Get the latest commit hash
-              latest_commit=$(git rev-parse HEAD)
+              
               echo $latest_commit
 
               # # Get the previous commit hash
@@ -54,7 +54,10 @@ stages:
               # # List the files that have changed between the two commits
               # changed_files=$(git diff --name-only $previous_commit $latest_commit)
               # echo $changed_files
+
               echo "var"
+              latest_commit=$(git rev-parse HEAD)
+              previous_commit=$(git diff HEAD..origin/master)
               TEST1="$(System.PullRequest.targetBranchName)"
               pr_branch="$(System.PullRequest.SourceBranch)"
               commit_pr="$(System.PullRequest.SourceCommitId)"
@@ -66,11 +69,24 @@ stages:
 
               echo "commit PR"
               echo $commit_pr
+
               echo "git fetch pr_branch"
               git fetch origin $pr_branch
 
+              latest_commit=$(git rev-parse HEAD)
+              previous_commit=$(git diff HEAD..origin/master)
+              echo "latest_commit"
+              echo "$latest_commit"
+              echo "previous_commit"
+              echo "$previous_commit"
+              echo "commit_pr"
+              echo "$commit_pr"
+
+
               echo "changed files"
               git diff --name-only $commit_pr | cat
+              changed_files=$(git diff --name-only $previous_commit $latest_commit)
+              echo $changed_files
 
               echo "uno"
               test2=$(git log)
