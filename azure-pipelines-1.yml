@@ -56,7 +56,7 @@ stages:
               # echo $changed_files
               echo "var"
               TEST1="$(System.PullRequest.targetBranchName)"
-              TEST2="$(System.PullRequest.SourceBranch)"
+              pr_branch="$(System.PullRequest.SourceBranch)"
               commit_pr="$(System.PullRequest.SourceCommitId)"
               TEST4=$(System.PullRequest.TargetBranch)
 
@@ -66,8 +66,10 @@ stages:
 
               echo "commit PR"
               echo $commit_pr
-              echo "git diff"
-              git fetch origin test
+              echo "git fetch pr_branch"
+              git fetch origin $pr_branch
+
+              echo "changed files"
               git diff --name-only $commit_pr | cat
 
               echo "uno"
