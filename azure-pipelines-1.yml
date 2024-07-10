@@ -77,11 +77,12 @@ stages:
               echo "$commit_pr"
 
 
-              echo "changed files -----------------"
-              git diff --name-only $commit_pr | cat
-              changed_files=$(git diff --name-only $commit_pr $latest_commit)
-              echo $changed_files
-
+              # echo "changed files -----------------"
+              # git diff --name-only $commit_pr | cat
+              # changed_files=$(git diff --name-only $commit_pr $latest_commit)
+              # echo $changed_files
+              echo "changed files -----------------
+              it diff-tree --name-only --no-commit-id $pr_branch
               # echo "uno"
               # test2=$(git log)
               # echo "$test2"
