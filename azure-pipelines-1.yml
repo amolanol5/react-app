@@ -44,9 +44,6 @@ stages:
               # ssh -o StrictHostKeyChecking=no -T git@github.com
               
               # Get the latest commit hash
-              
-              echo $latest_commit
-
               # # Get the previous commit hash
               # previous_commit=$(git diff HEAD..origin/master)
               # echo $previous_commit
@@ -56,8 +53,8 @@ stages:
               # echo $changed_files
 
               echo "var"
-              latest_commit=$(git rev-parse HEAD)
-              previous_commit=$(git diff HEAD..origin/master)
+              # latest_commit=$(git rev-parse HEAD)
+              # previous_commit=$(git diff HEAD..origin/master)
               TEST1="$(System.PullRequest.targetBranchName)"
               pr_branch="$(System.PullRequest.SourceBranch)"
               commit_pr="$(System.PullRequest.SourceCommitId)"
@@ -74,27 +71,24 @@ stages:
               git fetch origin $pr_branch
 
               latest_commit=$(git rev-parse HEAD)
-              previous_commit=$(git diff HEAD..origin/master)
-              echo "latest_commit"
+              echo "latest_commit -----------------"
               echo "$latest_commit"
-              echo "previous_commit"
-              echo "$previous_commit"
-              echo "commit_pr"
+              echo "commit_pr -----------------"
               echo "$commit_pr"
 
 
-              echo "changed files"
+              echo "changed files -----------------"
               git diff --name-only $commit_pr | cat
-              changed_files=$(git diff --name-only $previous_commit $latest_commit)
+              changed_files=$(git diff --name-only $commit_pr $latest_commit)
               echo $changed_files
 
-              echo "uno"
-              test2=$(git log)
-              echo "$test2"
+              # echo "uno"
+              # test2=$(git log)
+              # echo "$test2"
 
-              echo "dos"
-              test=$(git branch --list)
-              echo "$test"
+              # echo "dos"
+              # test=$(git branch --list)
+              # echo "$test"
 
-              echo "tres"
-              ls -la
+              # echo "tres"
+              # ls -la
