@@ -85,7 +85,9 @@ stages:
               # git fetch origin $pr_branch
               # git checkout $pr_branch
               # git diff --name-only $main_branch | cat
-
+              echo "primer tree"
+              git diff-tree --no-commit-id --name-only -r HEAD
+              echo "segundo tree"
               git diff-tree --no-commit-id --name-only -r HEAD > changed_files.txt
               echo "Changed files:"
               cat changed_files.txt
