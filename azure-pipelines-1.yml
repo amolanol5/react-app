@@ -52,16 +52,16 @@ stages:
               # changed_files=$(git diff --name-only $previous_commit $latest_commit)
               # echo $changed_files
 
-              echo "var"
-              # latest_commit=$(git rev-parse HEAD)
-              # previous_commit=$(git diff HEAD..origin/master)
-              main_branch="$(System.PullRequest.targetBranchName)"
-              pr_branch="$(System.PullRequest.SourceBranch)"
-              commit_pr="$(System.PullRequest.SourceCommitId)"
-              TEST4=$(System.PullRequest.TargetBranch)
+              # echo "var"
+              # # latest_commit=$(git rev-parse HEAD)
+              # # previous_commit=$(git diff HEAD..origin/master)
+              # main_branch="$(System.PullRequest.targetBranchName)"
+              # pr_branch="$(System.PullRequest.SourceBranch)"
+              # commit_pr="$(System.PullRequest.SourceCommitId)"
+              # TEST4=$(System.PullRequest.TargetBranch)
 
-              echo $TEST2
-              echo $TEST3
+              # echo $TEST2
+              # echo $TEST3
 
               # echo "commit PR"
               # echo $commit_pr
