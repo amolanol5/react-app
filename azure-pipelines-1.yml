@@ -63,28 +63,32 @@ stages:
               echo $TEST2
               echo $TEST3
 
-              echo "commit PR"
-              echo $commit_pr
+              # echo "commit PR"
+              # echo $commit_pr
 
-              echo "git fetch pr_branch"
-              git fetch origin $pr_branch
+              # echo "git fetch pr_branch"
+              # git fetch origin $pr_branch
 
-              latest_commit=$(git rev-parse HEAD)
-              echo "latest_commit -----------------"
-              echo "$latest_commit"
-              echo "commit_pr -----------------"
-              echo "$commit_pr"
+              # latest_commit=$(git rev-parse HEAD)
+              # echo "latest_commit -----------------"
+              # echo "$latest_commit"
+              # echo "commit_pr -----------------"
+              # echo "$commit_pr"
 
 
+              # # echo "changed files -----------------"
+              # # git diff --name-only $commit_pr | cat
+              # # changed_files=$(git diff --name-only $commit_pr $latest_commit)
+              # # echo $changed_files
               # echo "changed files -----------------"
-              # git diff --name-only $commit_pr | cat
-              # changed_files=$(git diff --name-only $commit_pr $latest_commit)
-              # echo $changed_files
-              echo "changed files -----------------"
-              git fetch origin $main_branch
-              git fetch origin $pr_branch
-              git checkout $pr_branch
-              git diff --name-only $main_branch | cat
+              # git fetch origin $main_branch
+              # git fetch origin $pr_branch
+              # git checkout $pr_branch
+              # git diff --name-only $main_branch | cat
+
+              git diff-tree --no-commit-id --name-only -r HEAD > changed_files.txt
+              echo "Changed files:"
+              cat changed_files.txt
 
               # echo "uno"
               # test2=$(git log)
