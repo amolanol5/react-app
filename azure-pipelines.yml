@@ -1,19 +1,110 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+  - dev
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+  - stage: Build
+    displayName: Build stage
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    variables:
+      - group: "node-app-amplify"
+
+    jobs:
+      - job: Build
+        displayName: Build
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "18.0.0"
+            displayName: "Install Node.js"
+
+          - script: |
+               yarn install
+               yarn run build            
+            displayName: "yarn install and build"
+
+          - script: |
+              echo $(REACT_APP_PRUEBA)
+              ls build/
+
+          - script: |
+              ls customHttp.yml || exit 0
+              cp -r  customHttp.yml build/
+              ls build/customHttp.yml
+            displayName: Custom Headers
+
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
+              includeRootFolder: false
+              archiveType: "zip"
+              archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+              replaceExistingArchive: true
+            displayName: Compress the ./build folder
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)
+              ArtifactName: $(Build.BuildId)
+            displayName: Publish build artifacts
+
+  - stage: Deploy
+    displayName: Deploy amplify
+
+    variables:
+      - group: "node-app-amplify-deploy"
+
+    jobs:
+      - job: Deploy
+        displayName: Deploy
+        steps:
+          - task: DownloadBuildArtifacts@0
+            displayName: "Download Build Artifacts"
+            inputs:
+              artifactName: $(Build.BuildId)
+              downloadPath: $(System.DefaultWorkingDirectory)
+
+          - script: |
+               ls -la $(System.DefaultWorkingDirectory)        
+            displayName: "ls -la"
+
+          - task: ExtractFiles@1
+            displayName: 'Extract files '
+            inputs:
+              archiveFilePatterns: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              destinationFolder: '$(System.DefaultWorkingDirectory)/application'
+
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+            displayName: 'Replace tokens in tokens**/*'
+            inputs:
+              targetFiles: '$(System.DefaultWorkingDirectory)/application/**/*'
+              verbosity: detailed
+
+          - task: AWSShellScript@1
+            inputs:
+              awsCredentials: AWS AMOLANO ENV
+              regionName: $(AwsRegion)
+              scriptType: "inline"
+              failOnStandardError: true
+              inlineScript: |
+                export DEPLOY_RES=$(aws amplify create-deployment --app-id $(AmplifyAppId) --branch-name $(AmplifyBranchName) --no-cli-pager)
+                export DEPLOY_JOB_ID=$(echo $DEPLOY_RES | jq -r ".jobId")
+                export DEPLOY_URL=$(echo $DEPLOY_RES | jq -r ".zipUploadUrl")
+
+                curl -s --location --request PUT "$DEPLOY_URL" \
+                    --header 'Content-Type: application/zip' \
+                    --data-binary '@/$(System.DefaultWorkingDirectory)/$(Build.BuildId)/$(Build.BuildId).zip'
+
+                aws amplify start-deployment --app-id $(AmplifyAppId) --branch-name $(AmplifyBranchName) --job-id $DEPLOY_JOB_ID
+            displayName: Create Amplify Deployment
+
+
+              # yarn install
+              # ls
+              # export REACT_APP_PRUEBA=$(PRUEBA)
+              # echo "---------------------------------------------"
+              # echo $PRUEBA
+              # yarn run build
+              # ls build
